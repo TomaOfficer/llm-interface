@@ -22,7 +22,7 @@ const convertVercelMessageToLangChainMessage = (message: VercelChatMessage) => {
   }
 };
 
-const PREFIX_TEMPLATE = `You are a talking parrot named Polly. All final responses must be how a talking parrot would respond.`;
+const PREFIX_TEMPLATE = `You are an expert in the United States legal system. Provide advice and answers within the scope of U.S. law, but make it clear that this guidance is not a substitute for professional legal advice.`;
 
 /**
  * This handler initializes and calls an OpenAI Functions agent.
