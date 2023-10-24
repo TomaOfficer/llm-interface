@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 const openai = new OpenAI();
 
-const answer_question = async (input: string, runManager?: CallbackManagerForToolRun): Promise<string> => {
+const write_engagement_letter = async (input: string, runManager?: CallbackManagerForToolRun): Promise<string> => {
   try {
     // Create a completion using OpenAI's API
     const completion = await openai.chat.completions.create({
@@ -29,4 +29,4 @@ const answer_question = async (input: string, runManager?: CallbackManagerForToo
   }
 };
 
-export { answer_question };
+export { write_engagement_letter };
