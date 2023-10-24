@@ -5,6 +5,7 @@ import { initializeAgentExecutorWithOptions } from "langchain/agents";
 import { ChatOpenAI } from "langchain/chat_models/openai";
 import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
+import { DynamicTool } from "langchain/tools";
 
 import { AIMessage, ChatMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
@@ -47,8 +48,25 @@ export async function POST(req: NextRequest) {
     const currentMessageContent = messages[messages.length - 1].content;
 
     // Requires process.env.SERPAPI_API_KEY to be set: https://serpapi.com/
-    const tools = [new Calculator(), new SerpAPI()];
+    console.log("Initializing tools...");
+    const tools = [
+      new Calculator(), 
+      new SerpAPI(),
+      new DynamicTool({
+        name: "FOO",
+        description: "call this to get the value of foo. input should be an empty string.",
+        func: async () => "baz",
+      }),
+      new DynamicTool({
+        name: "BAR",
+        description: "call this to get the value of bar. input should be an empty string.",
+        func: async () => "baz1",
+      }),
+    ];
+    console.log("Tools initialized: ", tools.map(tool => tool.constructor.name));
+
     const chat = new ChatOpenAI({ modelName: "gpt-4", temperature: 0 });
+    console.log("Chat model initialized: ", chat.constructor.name);
 
     /**
      * The default prompt for the OpenAI functions agent has a placeholder
