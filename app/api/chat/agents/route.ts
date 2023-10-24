@@ -7,6 +7,7 @@ import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
 import { DynamicTool } from "langchain/tools";
 import { write_engagement_letter } from "../tools/write-engagement-letter-tool";
+import { calculate_fees } from "../tools/fee-calculator";
 import { AIMessage, ChatMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 
@@ -67,6 +68,11 @@ export async function POST(req: NextRequest) {
         description: "Call this to generate an engagement letter.",
         func: write_engagement_letter,
       }),
+      new DynamicTool({
+        name: "FeeCalculator",
+        description: "Call this to calculate legal issues for the user's law firm.",
+        func: calculate_fees,
+      })
     ];
     console.log("Tools initialized: ", tools.map(tool => tool.constructor.name));
 
