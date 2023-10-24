@@ -6,7 +6,7 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
 import { DynamicTool } from "langchain/tools";
-import { answer_question } from "./answer_questions";
+import { write_engagement_letter } from "./write-engagement-letter-tool";
 import { AIMessage, ChatMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 
@@ -63,9 +63,9 @@ export async function POST(req: NextRequest) {
         func: async () => "baz1",
       }),
       new DynamicTool({
-        name: "X",
-        description: "call this get the value of X. input should be an empty string.",
-        func: answer_question,
+        name: "EngagementLetter",
+        description: "Call this to generate an engagement letter.",
+        func: write_engagement_letter,
       }),
     ];
     console.log("Tools initialized: ", tools.map(tool => tool.constructor.name));
