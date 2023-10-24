@@ -6,7 +6,7 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
 import { DynamicTool } from "langchain/tools";
-
+import { answer_question } from "./answer_questions";
 import { AIMessage, ChatMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 
@@ -61,6 +61,11 @@ export async function POST(req: NextRequest) {
         name: "BAR",
         description: "call this to get the value of bar. input should be an empty string.",
         func: async () => "baz1",
+      }),
+      new DynamicTool({
+        name: "X",
+        description: "call this get the value of X. input should be an empty string.",
+        func: answer_question,
       }),
     ];
     console.log("Tools initialized: ", tools.map(tool => tool.constructor.name));
