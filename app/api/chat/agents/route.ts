@@ -6,7 +6,7 @@ import { ChatOpenAI } from "langchain/chat_models/openai";
 import { SerpAPI } from "langchain/tools";
 import { Calculator } from "langchain/tools/calculator";
 import { DynamicTool } from "langchain/tools";
-import { write_engagement_letter } from "./write-engagement-letter-tool";
+import { write_engagement_letter } from "../tools/write-engagement-letter-tool";
 import { AIMessage, ChatMessage, HumanMessage } from "langchain/schema";
 import { BufferMemory, ChatMessageHistory } from "langchain/memory";
 

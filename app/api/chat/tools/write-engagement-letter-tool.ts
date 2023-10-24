@@ -7,7 +7,7 @@ const write_engagement_letter = async (input: string, runManager?: CallbackManag
     // Create a completion using OpenAI's API
     const completion = await openai.chat.completions.create({
       messages: [
-        { role: "system", content: "You are a helpful assistant specialized in generating engagement letters. Pay close attention to the details provided by the user, such as client name, address, matter, and scope of representation, to draft an appropriate engagement letter." },
+        { role: "system", content: "You are a helpful assistant specialized in generating engagement letters. Pay close attention to the details provided by the user, such as client name, address, matter, and scope of representation, to draft an appropriate engagement letter. If you don't have enough details from the user, just say so." },
         { role: "user", content: input }
       ],
       model: "gpt-4",
